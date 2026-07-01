@@ -4,10 +4,10 @@ Health check and status endpoints.
 
 from flask import Blueprint, jsonify
 
-bp = Blueprint("health", __name__)
+bp = Blueprint("health", __name__, url_prefix="/health")
 
 
-@bp.route("/", methods=["GET"])
+@bp.route("", methods=["GET"])
 def health_check():
     """Health check endpoint."""
     return jsonify({
@@ -17,7 +17,7 @@ def health_check():
     }), 200
 
 
-@bp.route("/api/health", methods=["GET"])
+@bp.route("/status", methods=["GET"])
 def api_health():
     """API health check endpoint."""
     return jsonify({

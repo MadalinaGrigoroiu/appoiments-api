@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Appointments APP{% endblock %}
+
+{% block content %}
+<h1> GENERAL</h1>
+
+<div class="dashboard-grid">
+    <div class="card">
+        <h2>👥 Clients</h2>
+        <div class="card-number" id="clientCount">-</div>
+        <p>Total clients</p>
+        <button onclick="location.href='/clients-page'" style="color: white; text-decoration: underline; background: none; border: none; cursor: pointer; font-size: 1em;">Manage →</button>
+    </div>
+
+    <div class="card">
+        <h2> Services</h2>
+        <div class="card-number" id="serviceCount">-</div>
+        <p>Available services</p>
+        <button onclick="location.href='/services-page'" style="color: white; text-decoration: underline; background: none; border: none; cursor: pointer; font-size: 1em;">Manage →</button>
+    </div>
+
+    <div class="card">
+        <h2>Appointments</h2>
+        <div class="card-number" id="appointmentCount">-</div>
+        <p>Total appointments</p>
+        <button onclick="location.href='/appointments-page'" style="color: white; text-decoration: underline; background: none; border: none; cursor: pointer; font-size: 1em;">Manage →</button>
+    </div>
+</div>
+
+
+
+<script>
+async function loadDashboardStats() {
+    try {
+        // Fetch clients count
+        const clientsRes = await fetch('/api/clients');
+        const clients = await clientsRes.json();
+        document.getElementById('clientCount').textContent = Array.isArray(clients) ? clients.length : 0;
+
+        // Fetch services count
+        const servicesRes = await fetch('/api/services');
+        const services = await servicesRes.json();
+        document.getElementById('serviceCount').textContent = Array.isArray(services) ? services.length : 0;
+
+        // Fetch appointments count
+        const appointmentsRes = await fetch('/api/appointments');
+        const appointments = await appointmentsRes.json();
+        document.getElementById('appointmentCount').textContent = Array.isArray(appointments) ? appointments.length : 0;
+    } catch (error) {
+        console.error('Error loading dashboard stats:', error);
+        document.getElementById('clientCount').textContent = '0';
+        document.getElementById('serviceCount').textContent = '0';
+        document.getElementById('appointmentCount').textContent = '0';
+    }
+}
+
+// Load stats when page loads
+document.addEventListener('DOMContentLoaded', loadDashboardStats);
+</script>
+{% endblock %}

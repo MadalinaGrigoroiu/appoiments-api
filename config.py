@@ -28,33 +28,15 @@ class DevelopmentConfig(Config):
     DEBUG = True
     SQLALCHEMY_ECHO = True
     SQLALCHEMY_DATABASE_URI = os.getenv(
-        "DATABASE_URL", "sqlite:///appointments.db"
+        "DATABASE_URL", 
+        f"sqlite:///{os.path.join(os.path.dirname(__file__), 'instance', 'appointments.db')}"
     )
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        "connect_args": {"timeout": 30, "check_same_thread": False},
+    }
     SESSION_COOKIE_SECURE = False
 
 
-class TestingConfig(Config):
-    """Testing environment configuration."""
-
-    TESTING = True
-    SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
-    WTF_CSRF_ENABLED = False
-
-
-class ProductionConfig(Config):
-    """Production environment configuration."""
-
-    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL", "sqlite:///appointments.db")
-
-
 def get_config():
-    """Get configuration based on environment."""
-    env = os.getenv("FLASK_ENV", "development").lower()
-
-    configs = {
-        "development": DevelopmentConfig,
-        "testing": TestingConfig,
-        "production": ProductionConfig,
-    }
-
-    return configs.get(env, DevelopmentConfig)
+    """Get configuration for development environment."""
+    return DevelopmentConfig

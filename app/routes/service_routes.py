@@ -22,7 +22,7 @@ def get_services():
 
 @bp.route("/<int:service_id>", methods=["GET"])
 def get_service(service_id):
-    """Get a specific service by ID."""
+  
     try:
         service = service_service.get_service_by_id(service_id)
         if not service:
@@ -34,7 +34,7 @@ def get_service(service_id):
 
 @bp.route("", methods=["POST"])
 def create_service():
-    """Create a new service."""
+   
     try:
         data = request.get_json()
         service = service_service.create_service(data)
@@ -47,7 +47,7 @@ def create_service():
 
 @bp.route("/<int:service_id>", methods=["PUT"])
 def update_service(service_id):
-    """Update a service."""
+  
     try:
         data = request.get_json()
         service = service_service.update_service(service_id, data)
@@ -62,7 +62,7 @@ def update_service(service_id):
 
 @bp.route("/<int:service_id>", methods=["DELETE"])
 def delete_service_handler(service_id):
-    """Delete a service."""
+   
     try:
         if service_service.delete_service(service_id):
             return jsonify({"message": "Service deleted"}), 200

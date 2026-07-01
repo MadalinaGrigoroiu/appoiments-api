@@ -4,7 +4,7 @@ Handles HTTP requests for booking and managing appointments.
 """
 
 from flask import Blueprint, request, jsonify
-from app.services.appointment_service import AppointmentService
+from app.services.appoiment_service import AppointmentService
 
 bp = Blueprint("appointments", __name__, url_prefix="/api/appointments")
 appointment_service = AppointmentService()
@@ -12,7 +12,7 @@ appointment_service = AppointmentService()
 
 @bp.route("", methods=["GET"])
 def get_appointments():
-    """Get all appointments."""
+  
     try:
         appointments = appointment_service.get_all_appointments()
         return jsonify([apt.to_dict() for apt in appointments]), 200
@@ -22,7 +22,7 @@ def get_appointments():
 
 @bp.route("/<int:appointment_id>", methods=["GET"])
 def get_appointment(appointment_id):
-    """Get a specific appointment by ID."""
+   
     try:
         appointment = appointment_service.get_appointment_by_id(appointment_id)
         if not appointment:
@@ -62,7 +62,7 @@ def update_appointment(appointment_id):
 
 @bp.route("/<int:appointment_id>", methods=["DELETE"])
 def delete_appointment_handler(appointment_id):
-    """Delete an appointment."""
+
     try:
         if appointment_service.delete_appointment(appointment_id):
             return jsonify({"message": "Appointment deleted"}), 200

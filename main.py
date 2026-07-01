@@ -1,5 +1,11 @@
 import os
+import sys
+import io
 from app import create_app
+
+# Fix encoding for Windows terminal
+if sys.platform == 'win32':
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 if __name__ == "__main__":
     # Set the environment
@@ -8,7 +14,7 @@ if __name__ == "__main__":
     app = create_app('development')
     
     print("\n" + "="*50)
-    print("🚀 Starting Appointments API")
+    print("[*] Starting Appointments API")
     print("="*50)
     print("Server running at: http://localhost:5000")
     print("\nAvailable endpoints:")

@@ -12,7 +12,7 @@ client_service = ClientService()
 
 @bp.route("", methods=["GET"])
 def get_clients():
-    """Get all clients."""
+   
     try:
         clients = client_service.get_all_clients()
         return jsonify([client.to_dict() for client in clients]), 200
@@ -22,7 +22,7 @@ def get_clients():
 
 @bp.route("/<int:client_id>", methods=["GET"])
 def get_client(client_id):
-    """Get a specific client by ID."""
+   
     try:
         client = client_service.get_client_by_id(client_id)
         if not client:
@@ -34,7 +34,7 @@ def get_client(client_id):
 
 @bp.route("", methods=["POST"])
 def create_client():
-    """Create a new client."""
+   
     try:
         data = request.get_json()
         client = client_service.create_client(data)
@@ -47,7 +47,7 @@ def create_client():
 
 @bp.route("/<int:client_id>", methods=["PUT"])
 def update_client(client_id):
-    """Update a client."""
+    
     try:
         data = request.get_json()
         client = client_service.update_client(client_id, data)
@@ -62,7 +62,7 @@ def update_client(client_id):
 
 @bp.route("/<int:client_id>", methods=["DELETE"])
 def delete_client_handler(client_id):
-    """Delete a client."""
+   
     try:
         if client_service.delete_client(client_id):
             return jsonify({"message": "Client deleted"}), 200
