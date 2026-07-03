@@ -1,6 +1,8 @@
 /**
- * Main Frontend Application Logic
- * Handles API calls and UI interactions
+ * Frontend app - handles API calls
+ * 
+ * HACK: Hardcoded localhost:5000
+ * TODO: Move to env variable
  */
 
 const API_BASE = "http://localhost:5000/api";
@@ -9,10 +11,8 @@ const API_BASE = "http://localhost:5000/api";
 // UTILITY FUNCTIONS
 // ===========================
 
-/**
- * Show alert message
- */
 function showAlert(message, type = "info") {
+    // Display alert message
     const alertDiv = document.querySelector(".alert");
     if (!alertDiv) {
         const container = document.querySelector(".content");
@@ -31,10 +31,9 @@ function showAlert(message, type = "info") {
     }, 4000);
 }
 
-/**
- * Make API request
- */
+// Call API (fetch wrapper)
 async function apiCall(endpoint, method = "GET", data = null) {
+    // Build request
     const options = {
         method: method,
         headers: {

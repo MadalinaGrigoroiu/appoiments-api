@@ -1,6 +1,8 @@
-"""
-Routes for client-related API endpoints.
-Handles HTTP requests for client CRUD operations.
+"""Client API routes.
+
+Basic CRUD endpoints. No auth yet.
+TODO: Add authentication
+TODO: Add input validation (SQL injection risk)
 """
 
 from flask import Blueprint, request, jsonify
@@ -12,7 +14,7 @@ client_service = ClientService()
 
 @bp.route("", methods=["GET"])
 def get_clients():
-   
+    # Get all clients - no pagination
     try:
         clients = client_service.get_all_clients()
         return jsonify([client.to_dict() for client in clients]), 200
@@ -22,7 +24,7 @@ def get_clients():
 
 @bp.route("/<int:client_id>", methods=["GET"])
 def get_client(client_id):
-   
+    # Get single client
     try:
         client = client_service.get_client_by_id(client_id)
         if not client:

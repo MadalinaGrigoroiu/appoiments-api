@@ -1,24 +1,14 @@
-"""Database models for appointments management system.
+"""DB models for appointments system.
 
-Uses SQLAlchemy ORM for database abstraction.
+WARNING: SQLite is fine for dev, but switch to PostgreSQL for production
 """
 
 from app import db
 from datetime import datetime
-from typing import Optional
 
 
 class Client(db.Model):
-    """Represents a client who can book appointments.
-
-    Attributes:
-        id: Unique identifier
-        name: Client's full name
-        email: Client's email address
-        phone: Client's contact phone
-        created_at: Account creation timestamp
-        appointments: Relationship to Appointment objects
-    """
+    """Client model - who books appointments."""
 
     __tablename__ = "clients"
 
@@ -34,7 +24,7 @@ class Client(db.Model):
     )
 
     def to_dict(self) -> dict:
-        """Convert client object to dictionary for JSON serialization."""
+        """Convert to dict."""
         return {
             "id": self.id,
             "name": self.name,
@@ -45,16 +35,7 @@ class Client(db.Model):
 
 
 class Service(db.Model):
-    """Represents a service that can be booked.
-
-    Attributes:
-        id: Unique identifier
-        name: Service name
-        description: Detailed service description
-        duration_minutes: How long the service takes
-        price: Service cost
-        appointments: Relationship to Appointment objects
-    """
+    """Service model."""
 
     __tablename__ = "services"
 

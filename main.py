@@ -3,12 +3,12 @@ import sys
 import io
 from app import create_app
 
-# Fix encoding for Windows terminal
+# Windows terminal encoding fix (stupid bug)
 if sys.platform == 'win32':
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 if __name__ == "__main__":
-    # Set the environment
+    # Dev mode - TODO: Set via .env file
     os.environ.setdefault('FLASK_ENV', 'development')
     
     app = create_app('development')

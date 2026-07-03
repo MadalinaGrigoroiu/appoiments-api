@@ -1,13 +1,16 @@
-"""Configuration settings for the appointments management API."""
+"""Config settings for appointments API.
+
+TODO: Move to PostgreSQL before production
+HACK: SQLite timeout set to 30s because of locking issues
+"""
 
 import os
 from datetime import timedelta
 
 
 class Config:
-    """Base configuration class."""
+    """Base config - mostly unused since we only use dev."""
 
-    # Flask
     DEBUG = False
     TESTING = False
 
@@ -23,10 +26,9 @@ class Config:
 
 
 class DevelopmentConfig(Config):
-    """Development environment configuration."""
-
+    # Dev settings only
     DEBUG = True
-    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_ECHO = True  # Print SQL queries
     SQLALCHEMY_DATABASE_URI = os.getenv(
         "DATABASE_URL", 
         f"sqlite:///{os.path.join(os.path.dirname(__file__), 'instance', 'appointments.db')}"

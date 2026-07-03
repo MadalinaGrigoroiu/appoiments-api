@@ -1,40 +1,24 @@
-"""
-Flask application factory.
-Initializes and configures the Flask app with SQLAlchemy.
-"""
+"""Flask app factory."""
 
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
-from flask_cors import CORS
 from config import DevelopmentConfig
 import os
 
-# Initialize SQLAlchemy
 db = SQLAlchemy()
 
 
 def create_app(config_name: str = "development") -> Flask:
-    """
-    Application factory function.
-    
-    Args:
-        config_name: Configuration environment name
-        
-    Returns:
-        Configured Flask application instance
-    """
-    # Get the absolute path to the app directory
+    """App factory."""
+    # Setup folders
     app_dir = os.path.dirname(os.path.abspath(__file__))
     template_dir = os.path.join(app_dir, 'templates')
     static_dir = os.path.join(app_dir, 'static')
     
     app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
     
-    # Load configuration (always development)
+    # Load config
     app.config.from_object(DevelopmentConfig)
-    
-    # Enable CORS
-    CORS(app)
     
     # Initialize database
     db.init_app(app)
